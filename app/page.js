@@ -130,11 +130,10 @@ export default function App() {
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">CollabSpace Auth</h1>
 
         {message && (
-          <div className={`p-3 rounded-lg mb-4 text-sm ${
-            message.includes("successful") 
-              ? "bg-green-100 text-green-700 border border-green-300" 
+          <div className={`p-3 rounded-lg mb-4 text-sm ${message.includes("successful")
+              ? "bg-green-100 text-green-700 border border-green-300"
               : "bg-red-100 text-red-700 border border-red-300"
-          }`}>
+            }`}>
             {message}
           </div>
         )}
@@ -142,7 +141,7 @@ export default function App() {
         {view === "signup" && (
           <form onSubmit={handleSignup} className="space-y-4">
             <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">Create Account</h2>
-            
+
             <input
               name="username"
               placeholder="Username *"
@@ -151,7 +150,7 @@ export default function App() {
               required
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
+
             <input
               name="email"
               type="email"
@@ -161,7 +160,7 @@ export default function App() {
               required
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
+
             <input
               name="name"
               placeholder="Full Name (optional)"
@@ -169,7 +168,7 @@ export default function App() {
               onChange={handleChange}
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
+
             <input
               type="password"
               name="password"
@@ -179,19 +178,19 @@ export default function App() {
               required
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium"
             >
               {loading ? "Creating..." : "Signup"}
             </button>
-            
+
             <p className="text-center text-sm text-gray-600">
               Already have an account?{" "}
-              <span 
-                className="text-blue-600 cursor-pointer underline hover:text-blue-800" 
+              <span
+                className="text-blue-600 cursor-pointer underline hover:text-blue-800"
                 onClick={() => setView("login")}
               >
                 Login
@@ -203,7 +202,7 @@ export default function App() {
         {view === "login" && (
           <form onSubmit={handleLogin} className="space-y-4">
             <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">Login</h2>
-            
+
             <input
               name="email"
               placeholder="Email or Username"
@@ -212,7 +211,7 @@ export default function App() {
               required
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
+
             <input
               type="password"
               name="password"
@@ -222,19 +221,19 @@ export default function App() {
               required
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium"
             >
               {loading ? "Logging in..." : "Login"}
             </button>
-            
+
             <p className="text-center text-sm text-gray-600">
               Don't have an account?{" "}
-              <span 
-                className="text-blue-600 cursor-pointer underline hover:text-blue-800" 
+              <span
+                className="text-blue-600 cursor-pointer underline hover:text-blue-800"
                 onClick={() => setView("signup")}
               >
                 Signup
@@ -246,21 +245,21 @@ export default function App() {
         {view === "users" && (
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold text-center text-gray-700">Users List</h2>
-            
-            <button 
-              className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium" 
+
+            <button
+              className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium"
               onClick={handleLogout}
             >
               Logout
             </button>
-            
+
             {users.length === 0 ? (
               <p className="text-center text-gray-500 py-4">No users found.</p>
             ) : (
               <ul className="space-y-3 mt-4">
                 {users.map((u) => (
-                  <li 
-                    key={u.id} 
+                  <li
+                    key={u.id}
                     className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <div className="font-semibold text-gray-800">{u.username}</div>
