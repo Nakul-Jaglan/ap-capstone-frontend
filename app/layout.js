@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { CallProvider } from "./contexts/CallContext";
+import CallInterface from "./components/CallInterface";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +25,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <CallProvider>
+          {children}
+          <CallInterface />
+        </CallProvider>
       </body>
     </html>
   );
