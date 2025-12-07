@@ -31,6 +31,7 @@ function ChannelDetailPage() {
     const [inviteError, setInviteError] = useState('')
     const [showMembersModal, setShowMembersModal] = useState(false)
     const [copiedInvite, setCopiedInvite] = useState(false)
+    const [inviting, setInviting] = useState(false)
 
     const messagesEndRef = useRef(null)
     const socketRef = useRef(null)
@@ -336,6 +337,7 @@ function ChannelDetailPage() {
             return
         }
 
+        setInviting(true)
         try {
             const token = localStorage.getItem('token')
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/channels/${channelId}/invite`, {
@@ -359,6 +361,8 @@ function ChannelDetailPage() {
         } catch (error) {
             console.error('Error inviting user:', error)
             setInviteError('Failed to invite user')
+        } finally {
+            setInviting(false)
         }
     }
 
@@ -437,62 +441,62 @@ function ChannelDetailPage() {
         <BgLayout>
             <main className="flex flex-col min-h-[93vh] bg-gray-50">
                 {/* Header */}
-                <div className="bg-white border-b border-gray-200 px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                <div className="bg-white border-b border-gray-200 px-3 sm:px-6 py-3 sm:py-4">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
                             <button
                                 onClick={() => router.push('/channels')}
-                                className="p-2 text-black hover:bg-gray-100 rounded-lg transition-colors"
+                                className="p-2 text-black hover:bg-gray-100 rounded-lg transition-colors shrink-0"
                             >
                                 <ArrowLeft size={20} />
                             </button>
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-indigo-100 rounded-lg">
-                                    <Hash size={24} className="text-indigo-600" />
+                            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                                <div className="p-1.5 sm:p-2 bg-indigo-100 rounded-lg shrink-0">
+                                    <Hash size={20} className="text-indigo-600 sm:w-6 sm:h-6" />
                                 </div>
-                                <div>
-                                    <h1 className="text-xl font-semibold text-gray-800">{channel?.name}</h1>
+                                <div className="min-w-0">
+                                    <h1 className="text-base sm:text-xl font-semibold text-gray-800 truncate">{channel?.name}</h1>
                                     {channel?.description && (
-                                        <p className="text-sm text-gray-500">{channel.description}</p>
+                                        <p className="text-xs sm:text-sm text-gray-500 truncate hidden sm:block">{channel.description}</p>
                                     )}
                                 </div>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2">
                             <button
                                 onClick={() => startCall(channel.id, null, channel.name, 'audio')}
                                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                                 title="Start voice call"
                             >
-                                <Phone size={18} className="text-gray-600" />
+                                <Phone size={16} className="text-gray-600 sm:w-[18px] sm:h-[18px]" />
                             </button>
                             <button
                                 onClick={() => startCall(channel.id, null, channel.name, 'video')}
                                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                                 title="Start video call"
                             >
-                                <Video size={18} className="text-gray-600" />
+                                <Video size={16} className="text-gray-600 sm:w-[18px] sm:h-[18px]" />
                             </button>
                             <button
                                 onClick={() => setShowMembersModal(true)}
-                                className="flex items-center gap-2 px-4 py-2 text-black bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-black bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                             >
-                                <Users size={18} />
-                                <span className="text-sm font-medium">{members.length}</span>
+                                <Users size={16} className="sm:w-[18px] sm:h-[18px]" />
+                                <span className="text-xs sm:text-sm font-medium">{members.length}</span>
                             </button>
                             <button
                                 onClick={() => setShowInviteModal(true)}
-                                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
                             >
-                                <UserPlus size={18} />
-                                <span className="text-sm font-medium">Invite</span>
+                                <UserPlus size={16} className="sm:w-[18px] sm:h-[18px]" />
+                                <span className="text-xs sm:text-sm font-medium hidden sm:inline">Invite</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto px-6 py-4">
+                <div className="flex-1 overflow-y-auto px-3 sm:px-6 py-4">
                     {Object.entries(messageGroups).map(([date, dateMessages]) => (
                         <div key={date}>
                             <div className="flex items-center justify-center my-4">
@@ -512,13 +516,13 @@ function ChannelDetailPage() {
                                         onMouseEnter={() => setHoveredMessageId(message.id)}
                                         onMouseLeave={() => setHoveredMessageId(null)}
                                     >
-                                        <div className="flex items-start gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold shrink-0">
+                                        <div className="flex items-start gap-2 sm:gap-3">
+                                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold shrink-0 text-sm sm:text-base">
                                                 {message.sender?.name?.[0]?.toUpperCase() || message.sender?.username?.[0]?.toUpperCase()}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="flex items-baseline gap-2 mb-1">
-                                                    <span className="font-semibold text-gray-900">
+                                                <div className="flex items-baseline gap-1 sm:gap-2 mb-1 flex-wrap">
+                                                    <span className="font-semibold text-gray-900 text-sm sm:text-base">
                                                         {message.sender?.name || message.sender?.username}
                                                     </span>
                                                     <span className="text-xs text-gray-500">
@@ -556,9 +560,9 @@ function ChannelDetailPage() {
                                                     </div>
                                                 ) : (
                                                     <div className="flex items-start gap-2">
-                                                        <p className="text-gray-800 wrap-break-word flex-1">{message.content}</p>
+                                                        <p className="text-gray-800 flex-1 text-sm sm:text-base wrap-break-word">{message.content}</p>
                                                         {isOwnMessage && isHovered && !message.deleted && (
-                                                            <div className="flex gap-1">
+                                                            <div className="flex gap-1 shrink-0">
                                                                 <button
                                                                     onClick={() => startEditing(message)}
                                                                     className="p-1 text-gray-500 hover:text-indigo-600 hover:bg-gray-100 rounded transition-colors"
@@ -598,8 +602,8 @@ function ChannelDetailPage() {
                 </div>
 
                 {/* Input */}
-                <div className="bg-white border-t border-gray-200 px-6 py-4">
-                    <form onSubmit={handleSendMessage} className="flex items-center gap-4">
+                <div className="bg-white border-t border-gray-200 px-3 sm:px-6 py-3 sm:py-4">
+                    <form onSubmit={handleSendMessage} className="flex items-center gap-2 sm:gap-4">
                         <input
                             type="text"
                             value={newMessage}
@@ -608,15 +612,15 @@ function ChannelDetailPage() {
                                 handleTyping()
                             }}
                             placeholder={`Message #${channel?.name}`}
-                            className="flex-1 px-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            className="flex-1 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             disabled={sending}
                         />
                         <button
                             type="submit"
                             disabled={!newMessage.trim() || sending}
-                            className="p-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="p-2 sm:p-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
                         >
-                            <Send size={20} />
+                            <Send size={18} className="sm:w-5 sm:h-5" />
                         </button>
                     </form>
                 </div>
@@ -624,8 +628,8 @@ function ChannelDetailPage() {
                 {/* Invite Modal */}
                 {showInviteModal && (
                     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-                        <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-                            <h2 className="text-2xl font-bold text-gray-800 mb-4">Invite to {channel?.name}</h2>
+                        <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Invite to {channel?.name}</h2>
 
                             <div className="mb-6">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -671,9 +675,17 @@ function ChannelDetailPage() {
                                 <div className="flex gap-3">
                                     <button
                                         type="submit"
-                                        className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                                        disabled={inviting || !inviteInput.trim()}
+                                        className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                     >
-                                        Invite User
+                                        {inviting ? (
+                                            <>
+                                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                                <span>Inviting...</span>
+                                            </>
+                                        ) : (
+                                            'Invite User'
+                                        )}
                                     </button>
                                     <button
                                         type="button"
@@ -682,7 +694,8 @@ function ChannelDetailPage() {
                                             setInviteInput('')
                                             setInviteError('')
                                         }}
-                                        className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                                        disabled={inviting}
+                                        className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         Close
                                     </button>
@@ -695,8 +708,8 @@ function ChannelDetailPage() {
                 {/* Members Modal */}
                 {showMembersModal && (
                     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-                        <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-                            <h2 className="text-2xl font-bold text-gray-800 mb-4">Members ({members.length})</h2>
+                        <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Members ({members.length})</h2>
                             <div className="max-h-96 overflow-y-auto space-y-2">
                                 {members.map((member) => (
                                     <div key={member.id} className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg">

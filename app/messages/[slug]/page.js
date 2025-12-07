@@ -90,15 +90,24 @@ function DMPage() {
                     setTargetUser(data.data.targetUser)
                     setMessages(data.data.messages)
 
+                    // Get current user for filtering
+                    const userResponse = await fetch(`${backendUrl}/users/me`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                    const userData = await userResponse.json()
+                    const currentUserData = userData.data
+
                     // Initialize Socket.IO connection
                     socketRef.current = io(backendUrl)
 
                     // Join the channel room
                     socketRef.current.emit('join_channel', data.data.channel.id)
 
-                    // Listen for new messages from other users
+                    // Listen for new messages from other users (filter out own messages)
                     socketRef.current.on('new_message', (message) => {
-                        setMessages(prev => [...prev, message])
+                        if (message.senderId !== currentUserData.id) {
+                            setMessages(prev => [...prev, message])
+                        }
                     })
 
                     // Listen for message updates
@@ -117,11 +126,17 @@ function DMPage() {
 
                     // Listen for typing indicators
                     socketRef.current.on('user_typing', ({ username: typingUser }) => {
-                        setIsTyping(true)
+                        // Only show typing if it's not the current user
+                        if (typingUser !== currentUserData.username) {
+                            setIsTyping(true)
+                        }
                     })
 
                     socketRef.current.on('user_stop_typing', ({ username: typingUser }) => {
-                        setIsTyping(false)
+                        // Only hide typing if it's not the current user
+                        if (typingUser !== currentUserData.username) {
+                            setIsTyping(false)
+                        }
                     })
 
                     socketRef.current.on('message_read_update', ({ messageId, userId }) => {
