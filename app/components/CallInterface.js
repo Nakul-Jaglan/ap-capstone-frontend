@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useCall } from '../contexts/CallContext'
-import { Phone, Video, Mic, MicOff, VideoOff, PhoneOff, X } from 'lucide-react'
+import { Phone, Video, Mic, MicOff, VideoOff, PhoneOff, X, Circle } from 'lucide-react'
 
 export default function CallInterface() {
     const {
@@ -26,6 +26,7 @@ export default function CallInterface() {
 
     useEffect(() => {
         if (localStream && localVideoRef.current) {
+            console.log('Setting local stream:', localStream.getTracks())
             localVideoRef.current.srcObject = localStream
             // Ensure video plays
             localVideoRef.current.play().catch(err => console.log('Local stream play error:', err))
@@ -53,9 +54,17 @@ export default function CallInterface() {
             <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
                 <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
                     <div className="mb-6">
-                        <div className="w-24 h-24 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4 animate-pulse">
-                            {incomingCall.callerName?.[0]?.toUpperCase()}
-                        </div>
+                        {incomingCall.callerAvatar ? (
+                            <img 
+                                src={incomingCall.callerAvatar} 
+                                alt={incomingCall.callerName}
+                                className="w-24 h-24 rounded-full mx-auto mb-4 animate-pulse object-cover"
+                            />
+                        ) : (
+                            <div className="w-24 h-24 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4 animate-pulse">
+                                {incomingCall.callerName?.[0]?.toUpperCase()}
+                            </div>
+                        )}
                         <h2 className="text-2xl font-bold text-gray-800 mb-2">
                             {incomingCall.callerName}
                         </h2>
@@ -146,14 +155,15 @@ export default function CallInterface() {
                     )}
 
                     {/* Local video (picture-in-picture) */}
-                    {isVideoCall && localStream && (
+                    {isVideoCall && localStream && localStream.getVideoTracks().length > 0 && (
                         <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white bg-gray-900">
                             <video
                                 ref={localVideoRef}
                                 autoPlay
                                 playsInline
                                 muted
-                                className="w-full h-full object-cover scale-x-[-1]"
+                                style={{ transform: 'scaleX(-1)' }}
+                                className="w-full h-full object-cover"
                             />
                         </div>
                     )}

@@ -219,6 +219,7 @@ export const CallProvider = ({ children }) => {
                 callType,
                 callerId: currentUser.id,
                 callerName: currentUser.name || currentUser.username,
+                callerAvatar: currentUser.avatarUrl,
                 startTime: Date.now()
             }
 
