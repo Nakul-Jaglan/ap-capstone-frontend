@@ -51,7 +51,6 @@ export default function CallInterface() {
 
     // Incoming call modal
     if (incomingCall && !activeCall) {
-        console.log('Incoming call data:', incomingCall)
         return (
             <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
                 <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
@@ -167,17 +166,13 @@ export default function CallInterface() {
                     {/* Local video (picture-in-picture) */}
                     {isVideoCall && (
                         <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white bg-gray-900 z-10">
-                            {localStream ? (
-                                <video
-                                    ref={localVideoRef}
-                                    autoPlay
-                                    playsInline
-                                    muted
-                                    style={{ transform: 'scaleX(-1)', width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                                />
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center text-white text-xs">Loading...</div>
-                            )}
+                            <video
+                                ref={localVideoRef}
+                                autoPlay
+                                playsInline
+                                muted
+                                style={{ transform: 'scaleX(-1)', width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#1f2937' }}
+                            />
                         </div>
                     )}
 
