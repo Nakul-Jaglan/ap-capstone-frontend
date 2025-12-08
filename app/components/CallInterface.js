@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useCallback } from 'react'
 import { useCall } from '../contexts/CallContext'
 import { Phone, Video, Mic, MicOff, VideoOff, PhoneOff, X, Circle } from 'lucide-react'
 
@@ -20,28 +20,23 @@ export default function CallInterface() {
         toggleVideo
     } = useCall()
 
-    const localVideoRef = useRef(null)
     const remoteVideoRef = useRef(null)
     const remoteAudioRef = useRef(null)
 
-    useEffect(() => {
-        if (localStream && localVideoRef.current) {
-            console.log('LOCAL VIDEO: Setting stream with tracks:', localStream.getTracks().map(t => t.kind))
-            localVideoRef.current.srcObject = localStream
-            localVideoRef.current.play().catch(err => console.error('Local video play error:', err))
-        } else {
-            console.log('LOCAL VIDEO: Missing', { hasStream: !!localStream, hasRef: !!localVideoRef.current })
+    // Use callback ref for local video to set stream immediately when element mounts
+    const localVideoRef = useCallback((videoElement) => {
+        if (videoElement && localStream) {
+            videoElement.srcObject = localStream
+            videoElement.play().catch(err => console.error('Local video play error:', err))
         }
     }, [localStream])
 
     useEffect(() => {
         if (remoteStream) {
-            // Set stream for video element if it exists
             if (remoteVideoRef.current) {
                 remoteVideoRef.current.srcObject = remoteStream
                 remoteVideoRef.current.play().catch(err => console.log('Remote video play error:', err))
             }
-            // Set stream for audio element if it exists
             if (remoteAudioRef.current) {
                 remoteAudioRef.current.srcObject = remoteStream
                 remoteAudioRef.current.play().catch(err => console.log('Remote audio play error:', err))
