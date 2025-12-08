@@ -26,12 +26,16 @@ export default function CallInterface() {
     useEffect(() => {
         if (localStream && localVideoRef.current) {
             localVideoRef.current.srcObject = localStream
+            // Ensure video plays
+            localVideoRef.current.play().catch(err => console.log('Local stream play error:', err))
         }
     }, [localStream])
 
     useEffect(() => {
         if (remoteStream && remoteVideoRef.current) {
             remoteVideoRef.current.srcObject = remoteStream
+            // Ensure audio/video plays
+            remoteVideoRef.current.play().catch(err => console.log('Remote stream play error:', err))
         }
     }, [remoteStream])
 
@@ -98,6 +102,13 @@ export default function CallInterface() {
                             playsInline
                             className="w-full h-full object-cover"
                         />
+                    ) : !isVideoCall && remoteStream ? (
+                        <audio
+                            ref={remoteVideoRef}
+                            autoPlay
+                            playsInline
+                            className="hidden"
+                        />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center">
                             <div className="text-center">
@@ -118,13 +129,13 @@ export default function CallInterface() {
 
                     {/* Local video (picture-in-picture) */}
                     {isVideoCall && localStream && (
-                        <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white">
+                        <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white bg-gray-900">
                             <video
                                 ref={localVideoRef}
                                 autoPlay
                                 playsInline
                                 muted
-                                className="w-full h-full object-cover mirror"
+                                className="w-full h-full object-cover scale-x-[-1]"
                             />
                         </div>
                     )}
