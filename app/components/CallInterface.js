@@ -22,6 +22,7 @@ export default function CallInterface() {
 
     const localVideoRef = useRef(null)
     const remoteVideoRef = useRef(null)
+    const remoteAudioRef = useRef(null)
 
     useEffect(() => {
         if (localStream && localVideoRef.current) {
@@ -32,10 +33,17 @@ export default function CallInterface() {
     }, [localStream])
 
     useEffect(() => {
-        if (remoteStream && remoteVideoRef.current) {
-            remoteVideoRef.current.srcObject = remoteStream
-            // Ensure audio/video plays
-            remoteVideoRef.current.play().catch(err => console.log('Remote stream play error:', err))
+        if (remoteStream) {
+            // Set stream for video element if it exists
+            if (remoteVideoRef.current) {
+                remoteVideoRef.current.srcObject = remoteStream
+                remoteVideoRef.current.play().catch(err => console.log('Remote video play error:', err))
+            }
+            // Set stream for audio element if it exists
+            if (remoteAudioRef.current) {
+                remoteAudioRef.current.srcObject = remoteStream
+                remoteAudioRef.current.play().catch(err => console.log('Remote audio play error:', err))
+            }
         }
     }, [remoteStream])
 
@@ -102,29 +110,39 @@ export default function CallInterface() {
                             playsInline
                             className="w-full h-full object-cover"
                         />
-                    ) : !isVideoCall && remoteStream ? (
-                        <audio
-                            ref={remoteVideoRef}
-                            autoPlay
-                            playsInline
-                            className="hidden"
-                        />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                            <div className="text-center">
-                                <div className="w-32 h-32 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-5xl font-bold mx-auto mb-4">
-                                    {activeCall.targetUserName?.[0]?.toUpperCase() || activeCall.callerName?.[0]?.toUpperCase()}
+                        <>
+                            {/* Audio element for voice calls (hidden but plays audio) */}
+                            {!isVideoCall && remoteStream && (
+                                <audio
+                                    ref={remoteAudioRef}
+                                    autoPlay
+                                    playsInline
+                                    className="hidden"
+                                />
+                            )}
+                            {/* User avatar placeholder */}
+                            <div className="w-full h-full flex items-center justify-center">
+                                <div className="text-center">
+                                    <div className="w-32 h-32 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-5xl font-bold mx-auto mb-4">
+                                        {activeCall.targetUserName?.[0]?.toUpperCase() || activeCall.callerName?.[0]?.toUpperCase()}
+                                    </div>
+                                    <h2 className="text-2xl font-semibold text-white mb-2">
+                                        {activeCall.targetUserName || activeCall.callerName}
+                                    </h2>
+                                    <p className="text-gray-300">
+                                        {callStatus === 'calling' && 'Calling...'}
+                                        {callStatus === 'connecting' && 'Connecting...'}
+                                        {callStatus === 'connected' && (
+                                            <span className="flex items-center justify-center gap-2">
+                                                <Circle className="w-3 h-3 fill-green-500 text-green-500 animate-pulse" />
+                                                {isVideoCall ? 'Video Call Connected' : 'Voice Call Connected'}
+                                            </span>
+                                        )}
+                                    </p>
                                 </div>
-                                <h2 className="text-2xl font-semibold text-white mb-2">
-                                    {activeCall.targetUserName || activeCall.callerName}
-                                </h2>
-                                <p className="text-gray-300">
-                                    {callStatus === 'calling' && 'Calling...'}
-                                    {callStatus === 'connecting' && 'Connecting...'}
-                                    {callStatus === 'connected' && 'Connected'}
-                                </p>
                             </div>
-                        </div>
+                        </>
                     )}
 
                     {/* Local video (picture-in-picture) */}

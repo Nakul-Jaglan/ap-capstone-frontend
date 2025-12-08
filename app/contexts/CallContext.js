@@ -202,6 +202,7 @@ export const CallProvider = ({ children }) => {
             const stream = await navigator.mediaDevices.getUserMedia(constraints)
             localStreamRef.current = stream
             setLocalStream(stream)
+            setIsAudioEnabled(true)
             setIsVideoEnabled(callType === 'video')
 
             const token = localStorage.getItem('token')
