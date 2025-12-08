@@ -192,7 +192,7 @@ export const CallProvider = ({ children }) => {
         })
     }
 
-    const startCall = async (channelId, targetUserId, targetUserName, callType = 'video') => {
+    const startCall = async (channelId, targetUserId, targetUserName, callType = 'video', targetUserAvatar = null) => {
         try {
             const constraints = {
                 audio: true,
@@ -216,6 +216,7 @@ export const CallProvider = ({ children }) => {
                 channelId,
                 targetUserId,
                 targetUserName,
+                targetUserAvatar,
                 callType,
                 callerId: currentUser.id,
                 callerName: currentUser.name || currentUser.username,

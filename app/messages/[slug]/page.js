@@ -425,14 +425,14 @@ function DMPage() {
                     {/* Call buttons */}
                     <div className="flex items-center gap-2">
                         <button
-                            onClick={() => startCall(channel.id, targetUser.id, targetUser.name || targetUser.username, 'audio')}
+                            onClick={() => startCall(channel.id, targetUser.id, targetUser.name || targetUser.username, 'audio', targetUser.avatarUrl)}
                             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                             title="Voice call"
                         >
                             <Phone className="w-5 h-5 text-gray-600" />
                         </button>
                         <button
-                            onClick={() => startCall(channel.id, targetUser.id, targetUser.name || targetUser.username, 'video')}
+                            onClick={() => startCall(channel.id, targetUser.id, targetUser.name || targetUser.username, 'video', targetUser.avatarUrl)}
                             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                             title="Video call"
                         >

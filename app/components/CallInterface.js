@@ -133,9 +133,17 @@ export default function CallInterface() {
                             {/* User avatar placeholder */}
                             <div className="w-full h-full flex items-center justify-center">
                                 <div className="text-center">
-                                    <div className="w-32 h-32 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-5xl font-bold mx-auto mb-4">
-                                        {activeCall.targetUserName?.[0]?.toUpperCase() || activeCall.callerName?.[0]?.toUpperCase()}
-                                    </div>
+                                    {(activeCall.targetUserAvatar || activeCall.callerAvatar) ? (
+                                        <img 
+                                            src={activeCall.targetUserAvatar || activeCall.callerAvatar} 
+                                            alt={activeCall.targetUserName || activeCall.callerName}
+                                            className="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white/20"
+                                        />
+                                    ) : (
+                                        <div className="w-32 h-32 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-5xl font-bold mx-auto mb-4">
+                                            {activeCall.targetUserName?.[0]?.toUpperCase() || activeCall.callerName?.[0]?.toUpperCase()}
+                                        </div>
+                                    )}
                                     <h2 className="text-2xl font-semibold text-white mb-2">
                                         {activeCall.targetUserName || activeCall.callerName}
                                     </h2>
@@ -155,7 +163,7 @@ export default function CallInterface() {
                     )}
 
                     {/* Local video (picture-in-picture) */}
-                    {isVideoCall && localStream && localStream.getVideoTracks().length > 0 && (
+                    {isVideoCall && localStream && (
                         <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white bg-gray-900">
                             <video
                                 ref={localVideoRef}
