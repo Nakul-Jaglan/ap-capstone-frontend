@@ -26,16 +26,11 @@ export default function CallInterface() {
 
     useEffect(() => {
         if (localStream && localVideoRef.current) {
-            console.log('Setting local stream:', localStream.getTracks())
-            console.log('Video tracks:', localStream.getVideoTracks())
-            console.log('Audio tracks:', localStream.getAudioTracks())
+            console.log('LOCAL VIDEO: Setting stream with tracks:', localStream.getTracks().map(t => t.kind))
             localVideoRef.current.srcObject = localStream
-            
-            // Wait for metadata to load before playing
-            localVideoRef.current.onloadedmetadata = () => {
-                console.log('Local video ready to play')
-                localVideoRef.current.play().catch(err => console.log('Local stream play error:', err))
-            }
+            localVideoRef.current.play().catch(err => console.error('Local video play error:', err))
+        } else {
+            console.log('LOCAL VIDEO: Missing', { hasStream: !!localStream, hasRef: !!localVideoRef.current })
         }
     }, [localStream])
 
@@ -170,20 +165,19 @@ export default function CallInterface() {
                     )}
 
                     {/* Local video (picture-in-picture) */}
-                    {isVideoCall && localStream && (
-                        <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white bg-red-500 z-10">
-                            <video
-                                ref={localVideoRef}
-                                autoPlay
-                                playsInline
-                                muted
-                                onLoadedMetadata={(e) => {
-                                    console.log('Local video metadata loaded:', e.target.videoWidth, 'x', e.target.videoHeight)
-                                    console.log('Video element:', e.target)
-                                    e.target.play().catch(err => console.log('Play error:', err))
-                                }}
-                                style={{ transform: 'scaleX(-1)', width: '100%', height: '100%', objectFit: 'cover' }}
-                            />
+                    {isVideoCall && (
+                        <div className="absolute top-4 right-4 w-48 h-36 rounded-lg overflow-hidden shadow-lg border-2 border-white bg-gray-900 z-10">
+                            {localStream ? (
+                                <video
+                                    ref={localVideoRef}
+                                    autoPlay
+                                    playsInline
+                                    muted
+                                    style={{ transform: 'scaleX(-1)', width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center text-white text-xs">Loading...</div>
+                            )}
                         </div>
                     )}
 
