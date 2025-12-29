@@ -19,9 +19,9 @@ function BgLayout({ children }) {
 
   useEffect(() => {
     fetchSidebarData()
-    
+
     const interval = setInterval(fetchSidebarData, 30000) // Every 30 seconds
-    
+
     return () => clearInterval(interval)
   }, [])
 
@@ -75,11 +75,11 @@ function BgLayout({ children }) {
   return (
     <div className="min-h-screen bg-gray-950">
       <Header />
-      
+
       {/* Mobile Menu Button */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className={`lg:hidden fixed ${sidebarOpen ? 'top-18 right-4' : 'top-18 left-4'} z-50 bg-blue-600 text-white p-3 rounded-2xl shadow-lg hover:bg-blue-700 transition-colors`}
+        className={`lg:hidden fixed ${sidebarOpen ? 'top-18 right-4' : 'top-18 left-4'} z-50 bg-[#7e3986] text-white p-3 rounded-2xl shadow-lg hover:bg-[#6b3173] transition-colors`}
       >
         {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
@@ -91,11 +91,11 @@ function BgLayout({ children }) {
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       <main className="flex h-[calc(100vh-4rem)]">
         {/* Sidebar */}
         <aside className={`
-          w-64 h-full bg-gray-900 border-r border-gray-800 overflow-y-auto
+          w-64 h-full bg-[#401145] border-r border-gray-800 overflow-y-auto
           fixed lg:static inset-y-16 left-0 z-40
           transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -105,16 +105,16 @@ function BgLayout({ children }) {
             <div className="mb-6">
               <button
                 onClick={() => setShowChannels(!showChannels)}
-                className="flex items-center justify-between w-full text-gray-400 hover:text-white mb-2 transition-colors"
+                className="flex items-center justify-between w-full text-white hover:text-white mb-2 transition-colors"
               >
                 <div className="flex items-center space-x-2">
                   {showChannels ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-                  <span className="text-sm font-semibold uppercase">Channels</span>
+                  <span className="text-sm font-semibold uppercase text-white">Channels</span>
                 </div>
                 <Link
                   href="/channels"
                   onClick={(e) => e.stopPropagation()}
-                  className="p-1 hover:bg-gray-800 rounded"
+                  className="p-1 hover:bg-[#7f3a87] rounded text-white"
                   title="View all channels"
                 >
                   <Plus className="w-4 h-4" />
@@ -124,20 +124,19 @@ function BgLayout({ children }) {
               {showChannels && (
                 <div className="space-y-1">
                   {loading ? (
-                    <div className="text-gray-500 text-sm px-2">Loading...</div>
+                    <div className="text-white text-sm px-2">Loading...</div>
                   ) : channels.length === 0 ? (
-                    <div className="text-gray-500 text-sm px-2">No channels yet</div>
+                    <div className="text-white text-sm px-2">No channels yet</div>
                   ) : (
                     channels.map((channel) => (
                       <Link
                         key={channel.id}
                         href={`/channels/${channel.id}`}
-                        className={`flex items-center space-x-2 px-2 py-1.5 rounded hover:bg-gray-800 transition-colors ${
-                          pathname === `/channels/${channel.id}` ? 'bg-gray-800 text-white' : 'text-gray-300'
-                        }`}
+                        className={`flex items-center space-x-2 px-2 py-1.5 rounded hover:bg-[#7f3a87] transition-colors ${pathname === `/channels/${channel.id}` ? 'text-white' : 'text-gray-300'
+                          }`}
                       >
-                        <Hash className="w-4 h-4 shrink-0" />
-                        <span className="text-sm truncate">{channel.name}</span>
+                        <Hash className="w-4 h-4 shrink-0 text-white" />
+                        <span className="text-sm truncate text-white">{channel.name}</span>
                       </Link>
                     ))
                   )}
@@ -149,7 +148,7 @@ function BgLayout({ children }) {
             <div>
               <button
                 onClick={() => setShowDMs(!showDMs)}
-                className="flex items-center justify-between w-full text-gray-400 hover:text-white mb-2 transition-colors"
+                className="flex items-center justify-between w-full text-white hover:text-white mb-2 transition-colors"
               >
                 <div className="flex items-center space-x-2">
                   {showDMs ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
@@ -158,7 +157,7 @@ function BgLayout({ children }) {
                 <Link
                   href="/search"
                   onClick={(e) => e.stopPropagation()}
-                  className="p-1 hover:bg-gray-800 rounded"
+                  className="p-1 hover:bg-[#7f3a87] rounded"
                   title="Start new DM"
                 >
                   <Plus className="w-4 h-4" />
@@ -168,17 +167,16 @@ function BgLayout({ children }) {
               {showDMs && (
                 <div className="space-y-1">
                   {loading ? (
-                    <div className="text-gray-500 text-sm px-2">Loading...</div>
+                    <div className="text-white text-sm px-2">Loading...</div>
                   ) : dms.length === 0 ? (
-                    <div className="text-gray-500 text-sm px-2">No messages yet</div>
+                    <div className="text-white text-sm px-2">No messages yet</div>
                   ) : (
                     dms.map((dm) => (
                       <Link
                         key={dm.channel.id}
                         href={`/messages/${dm.otherUser.username}`}
-                        className={`flex items-center space-x-2 px-2 py-1.5 rounded hover:bg-gray-800 transition-colors ${
-                          pathname === `/messages/${dm.otherUser.username}` ? 'bg-gray-800 text-white' : 'text-gray-300'
-                        }`}
+                        className={`flex items-center text-white space-x-2 px-2 py-1.5 rounded hover:bg-[#7f3a87] transition-colors ${pathname === `/messages/${dm.otherUser.username}` ? 'text-white' : 'text-gray-300'
+                          }`}
                       >
                         <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
                           {dm.otherUser.avatarUrl ? (
@@ -193,7 +191,7 @@ function BgLayout({ children }) {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-sm truncate">{dm.otherUser.username}</span>
+                            <span className="text-sm font-bold truncate">{dm.otherUser.username}</span>
                             {dm.unreadCount > 0 && (
                               <span className="ml-2 px-1.5 py-0.5 bg-blue-600 text-white text-xs rounded-full">
                                 {dm.unreadCount}
@@ -201,7 +199,7 @@ function BgLayout({ children }) {
                             )}
                           </div>
                           {dm.lastMessage && (
-                            <p className="text-xs text-gray-500 truncate">
+                            <p className="text-xs text-gray-300 truncate">
                               {dm.lastMessage.content || 'Media'}
                             </p>
                           )}
@@ -215,14 +213,13 @@ function BgLayout({ children }) {
 
             {/* Admin Panel Button */}
             {currentUser?.role === 'admin' && (
-              <div className="mt-6 pt-6 border-t border-gray-800">
+              <div className="mt-6 pt-6 border-t border-white">
                 <Link
                   href="/admin"
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
-                    pathname.startsWith('/admin') 
-                      ? 'bg-indigo-600 text-white' 
-                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-                  }`}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${pathname.startsWith('/admin')
+                      ? 'bg-[#9c19ab] text-white'
+                      : 'bg-[#7f3a87] text-white hover:bg-[#9c19ab]'
+                    }`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -236,7 +233,7 @@ function BgLayout({ children }) {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 overflow-y-auto w-full lg:w-auto">
+        <div className="flex-1 overflow-y-hidden w-full lg:w-auto">
           {children}
         </div>
       </main>

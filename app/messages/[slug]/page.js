@@ -357,10 +357,10 @@ function DMPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-[#1b1d21]">
                 <div className="text-center">
-                    <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
-                    <p className="text-gray-600">Loading messages...</p>
+                    <Loader2 className="w-12 h-12 animate-spin text-[#7f3a87] mx-auto mb-4" />
+                    <p className="text-gray-100">Loading messages...</p>
                 </div>
             </div>
         )
@@ -368,12 +368,12 @@ function DMPage() {
 
     if (error) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-[#1b1d21]">
                 <div className="text-center">
                     <p className="text-red-600 mb-4">{error}</p>
                     <button
                         onClick={() => router.back()}
-                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                        className="px-6 py-2 bg-[#7f3a87] text-white rounded-lg hover:bg-[#6e3378]"
                     >
                         Go Back
                     </button>
@@ -384,14 +384,14 @@ function DMPage() {
 
     return (
         <BgLayout>
-            <main className="min-h-[93vh] flex flex-col bg-gray-50">
+            <main className="min-h-[93vh] flex flex-col bg-[#1b1d21]">
                 {/* Header */}
-                <header className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-4">
+                <header className="bg-[#222529] border-b border-gray-700 px-4 py-3 flex items-center gap-4">
                     <button
                         onClick={() => router.back()}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
                     >
-                        <ArrowLeft className="w-5 h-5 text-gray-600" />
+                        <ArrowLeft className="w-5 h-5 text-gray-300" />
                     </button>
 
                     <div className="flex items-center gap-3 flex-1">
@@ -413,11 +413,11 @@ function DMPage() {
                         </div>
 
                         <div>
-                            <h1 className="font-semibold text-gray-900">
+                            <h1 className="font-semibold text-gray-100">
                                 {targetUser?.name || targetUser?.username}
                             </h1>
                             {targetUser?.name && (
-                                <p className="text-sm text-gray-500">@{targetUser.username}</p>
+                                <p className="text-sm text-gray-300">@{targetUser.username}</p>
                             )}
                         </div>
                     </div>
@@ -426,17 +426,17 @@ function DMPage() {
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => startCall(channel.id, targetUser.id, targetUser.name || targetUser.username, 'audio', targetUser.avatarUrl)}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="p-2 hover:bg-gray-500 rounded-lg transition-colors"
                             title="Voice call"
                         >
-                            <Phone className="w-5 h-5 text-gray-600" />
+                            <Phone className="w-5 h-5 text-gray-200" />
                         </button>
                         <button
                             onClick={() => startCall(channel.id, targetUser.id, targetUser.name || targetUser.username, 'video', targetUser.avatarUrl)}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="p-2 hover:bg-gray-500 rounded-lg transition-colors"
                             title="Video call"
                         >
-                            <Video className="w-5 h-5 text-gray-600" />
+                            <Video className="w-5 h-5 text-gray-200" />
                         </button>
                     </div>
                 </header>
@@ -452,7 +452,7 @@ function DMPage() {
                             <div key={message.id}>
                                 {showDate && (
                                     <div className="flex justify-center my-4">
-                                        <span className="bg-gray-200 text-gray-600 text-xs px-3 py-1 rounded-full">
+                                        <span className="text-gray-200 border border-gray-400 text-sm px-2 py-1 rounded-lg">
                                             {formatDate(message.sentAt)}
                                         </span>
                                     </div>
@@ -466,24 +466,24 @@ function DMPage() {
                                     <div className={`max-w-xs lg:max-w-md ${isOwnMessage ? 'order-2' : 'order-1'} relative`}>
                                         {editingMessageId === message.id ? (
                                             // Edit mode
-                                            <div className="bg-white border-2 border-blue-500 rounded-2xl p-3">
+                                            <div className="bg-[#2c2f33] border-2 border-[#7e3986] rounded-2xl p-3">
                                                 <textarea
                                                     value={editContent}
                                                     onChange={(e) => setEditContent(e.target.value)}
-                                                    className="w-full px-2 py-1 border-none focus:outline-none text-gray-900 resize-none"
+                                                    className="w-full px-2 py-1 border-none focus:outline-none text-gray-200 resize-none"
                                                     rows={3}
                                                     autoFocus
                                                 />
                                                 <div className="flex gap-2 mt-2 justify-end">
                                                     <button
                                                         onClick={cancelEditing}
-                                                        className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                                                        className="p-1.5 text-gray-200 hover:bg-gray-500 rounded"
                                                     >
                                                         <X className="w-4 h-4" />
                                                     </button>
                                                     <button
                                                         onClick={() => handleEditMessage(message.id)}
-                                                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded"
+                                                        className="p-1.5 text-[#7e3986] hover:bg-[#6e3378] hover:text-white rounded"
                                                         disabled={!editContent.trim()}
                                                     >
                                                         <Check className="w-4 h-4" />
@@ -495,7 +495,7 @@ function DMPage() {
                                             <>
                                                 <div className={`rounded-2xl px-4 py-2 ${isOwnMessage
                                                     ? 'bg-blue-600 text-white'
-                                                    : 'bg-white text-gray-900 border border-gray-200'
+                                                    : 'bg-[#2c2f33] text-gray-200 border border-gray-400'
                                                     }`}>
                                                     {message.deleted ? (
                                                         <p className="italic opacity-60">This message was deleted</p>
@@ -518,10 +518,10 @@ function DMPage() {
 
                                                 {/* Action buttons */}
                                                 {isOwnMessage && !message.deleted && hoveredMessageId === message.id && (
-                                                    <div className="absolute -top-3 right-0 bg-white border border-gray-200 rounded-lg shadow-lg flex gap-1 p-1">
+                                                    <div className="absolute -top-3 right-0 bg-[#2c2f33] border border-gray-400 rounded-lg shadow-lg flex gap-1 p-1">
                                                         <button
                                                             onClick={() => startEditing(message)}
-                                                            className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                                                            className="p-1.5 text-gray-200 hover:bg-gray-500 rounded"
                                                             title="Edit message"
                                                         >
                                                             <Edit2 className="w-4 h-4" />
@@ -563,7 +563,7 @@ function DMPage() {
                 </div>
 
                 {/* Input */}
-                <form onSubmit={handleSendMessage} className="bg-white border-t border-gray-200 p-4">
+                <form onSubmit={handleSendMessage} className="bg-[#222529] border-t border-[#222529] p-4">
                     <div className="flex gap-2">
                         <input
                             type="text"
@@ -573,13 +573,13 @@ function DMPage() {
                                 handleTyping()
                             }}
                             placeholder="Type a message..."
-                            className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 text-gray-900"
+                            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7e3986] text-gray-200 bg-[#1b1d21]"
                             disabled={sending}
                         />
                         <button
                             type="submit"
                             disabled={sending || !newMessage.trim()}
-                            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                            className="px-6 py-3 bg-[#7e3986] text-white rounded-lg hover:bg-[#6e3378] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                         >
                             {sending ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />

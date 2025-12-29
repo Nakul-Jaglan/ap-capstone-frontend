@@ -53,9 +53,9 @@ function JoinChannelPage() {
 
     if (loading) {
         return (
-            <main className="flex items-center justify-center min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50">
+            <main className="flex items-center justify-center min-h-screen bg-[#1b1d21]">
                 <div className="text-center">
-                    <Loader2 size={48} className="animate-spin text-indigo-600 mx-auto mb-4" />
+                    <Loader2 size={48} className="animate-spin text-[#7e3986] mx-auto mb-4" />
                     <p className="text-gray-600 text-lg">Joining channel...</p>
                 </div>
             </main>
@@ -63,26 +63,26 @@ function JoinChannelPage() {
     }
 
     return (
-        <main className="flex items-center justify-center min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
-            <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+        <main className="flex items-center justify-center min-h-screen bg-[#1b1d21] p-4">
+            <div className="bg-[#401145] rounded-xl shadow-lg p-8 max-w-md w-full text-center">
                 <div className="p-4 bg-red-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                     <Hash size={32} className="text-red-600" />
                 </div>
-                <h1 className="text-2xl font-bold text-gray-800 mb-2">Unable to Join Channel</h1>
+                <h1 className="text-2xl font-bold text-gray-100 mb-2">Unable to Join Channel</h1>
                 <p className="text-red-600 mb-6">{error}</p>
                 <div className="flex gap-3">
                     <button
                         onClick={() => router.push('/channels')}
-                        className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                        className="flex-1 px-4 py-2 bg-[#7e3986] text-white rounded-lg hover:bg-[#6b3173] transition-colors"
                     >
                         Go to Channels
                     </button>
                     {/* <button
-            onClick={() => router.push('/login')}
-            className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
-          >
-            Login
-          </button> */}
+                        onClick={() => router.push('/login')}
+                        className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                    >
+                        Login
+                    </button> */}
                 </div>
             </div>
         </main>

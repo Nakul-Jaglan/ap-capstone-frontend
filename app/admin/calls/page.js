@@ -80,18 +80,18 @@ function CallsAdminPage() {
 
     return (
         <BgLayout>
-            <div className="p-4 sm:p-6 bg-gray-50 min-h-screen">
+            <div className="p-4 sm:p-6 bg-[#1b1d21] min-h-screen">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex align-center items-center mb-6 gap-4">
                         <button
                             onClick={() => router.push('/admin')}
-                            className="p-2 text-black hover:bg-gray-100 rounded-lg transition-colors shrink-0"
+                            className="p-2 text-white hover:bg-gray-700 rounded-lg transition-colors shrink-0"
                         >
                             <ArrowLeft size={20} />
                         </button>
-                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Manage Calls</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-100">Manage Calls</h1>
                     </div>
-                    <div className="bg-white rounded-lg shadow p-4 mb-6">
+                    <div className="bg-[#2c2540] rounded-lg shadow p-4 mb-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <select
                                 value={typeFilter}
@@ -99,7 +99,7 @@ function CallsAdminPage() {
                                     setTypeFilter(e.target.value)
                                     setPagination(prev => ({ ...prev, page: 1 }))
                                 }}
-                                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900"
+                                className="px-4 py-2 text-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             >
                                 <option value="">All Types</option>
                                 <option value="audio">Audio Calls</option>
@@ -109,7 +109,7 @@ function CallsAdminPage() {
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900"
+                                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-100"
                             >
                                 <option value="startedAt">Start Time</option>
                                 <option value="duration">Duration</option>
@@ -118,7 +118,7 @@ function CallsAdminPage() {
                             <select
                                 value={sortOrder}
                                 onChange={(e) => setSortOrder(e.target.value)}
-                                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900"
+                                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-100"
                             >
                                 <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>
@@ -126,7 +126,7 @@ function CallsAdminPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow overflow-hidden">
+                    <div className="bg-[#2c2540] rounded-lg shadow overflow-hidden">
                         {loading ? (
                             <div className="flex items-center justify-center p-12">
                                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
@@ -135,19 +135,19 @@ function CallsAdminPage() {
                             <>
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full divide-y divide-gray-200">
-                                        <thead className="bg-gray-50">
+                                        <thead className="bg-[#2c2540]">
                                             <tr>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Initiator</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Channel</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Participants</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Started At</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">Type</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">Initiator</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">Channel</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">Participants</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">Duration</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">Started At</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
+                                        <tbody className="bg-[#2c2540] divide-y divide-gray-700">
                                             {calls.map((call) => (
-                                                <tr key={call.id} className="hover:bg-gray-50">
+                                                <tr key={call.id} className="hover:bg-gray-800">
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             {call.callType === 'video' ? (
@@ -155,12 +155,12 @@ function CallsAdminPage() {
                                                             ) : (
                                                                 <Phone className="w-5 h-5 text-green-600" />
                                                             )}
-                                                            <span className="ml-2 text-sm font-medium text-gray-900 capitalize">{call.callType}</span>
+                                                            <span className="ml-2 text-sm font-medium text-gray-100 capitalize">{call.callType}</span>
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
-                                                            <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-semibold shrink-0">
+                                                            <div className="w-8 h-8 bg-[#7c3aed] rounded-full flex items-center justify-center text-white text-sm font-semibold shrink-0">
                                                                 {call.initiator.avatarUrl ? (
                                                                     <img src={call.initiator.avatarUrl} alt={call.initiator.username} className="w-full h-full rounded-full object-cover" />
                                                                 ) : (
@@ -168,20 +168,20 @@ function CallsAdminPage() {
                                                                 )}
                                                             </div>
                                                             <div className="ml-3">
-                                                                <div className="text-sm font-medium text-gray-900">{call.initiator.username}</div>
+                                                                <div className="text-sm font-medium text-gray-100">{call.initiator.username}</div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-200">
                                                         {call.channel.name}
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-200">
                                                         {call.participants?.length || 0}
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-200">
                                                         {formatDuration(call.duration)}
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-200">
                                                         {new Date(call.startedAt).toLocaleString()}
                                                     </td>
                                                 </tr>
@@ -190,10 +190,10 @@ function CallsAdminPage() {
                                     </table>
                                 </div>
 
-                                <div className="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                                <div className=" px-4 py-3 flex items-center justify-between border-t border-gray-700 sm:px-6">
                                     <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div>
-                                            <p className="text-sm text-gray-700">
+                                            <p className="text-sm text-gray-200">
                                                 Showing <span className="font-medium">{(pagination.page - 1) * pagination.limit + 1}</span> to{' '}
                                                 <span className="font-medium">{Math.min(pagination.page * pagination.limit, pagination.total)}</span> of{' '}
                                                 <span className="font-medium">{pagination.total}</span> results
@@ -204,17 +204,17 @@ function CallsAdminPage() {
                                                 <button
                                                     onClick={() => setPagination(prev => ({ ...prev, page: prev.page - 1 }))}
                                                     disabled={pagination.page === 1}
-                                                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-600 bg-gray-700 text-sm font-medium text-gray-200 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                                                 >
                                                     <ChevronLeft className="w-5 h-5" />
                                                 </button>
-                                                <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                                <span className="relative inline-flex items-center px-4 py-2 border border-gray-600 bg-gray-700 text-sm font-medium text-gray-200">
                                                     Page {pagination.page} of {pagination.totalPages}
                                                 </span>
                                                 <button
                                                     onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
                                                     disabled={pagination.page === pagination.totalPages}
-                                                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-600 bg-gray-700 text-sm font-medium text-gray-200 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                                                 >
                                                     <ChevronRight className="w-5 h-5" />
                                                 </button>

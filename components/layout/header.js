@@ -82,14 +82,12 @@ function Header() {
 
     return (
         <>
-            <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-40">
+            <header className="bg-[#401145] border-b border-gray-800 sticky top-0 z-40">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center gap-4 h-16">
                         {/* Logo */}
                         <Link href="/" className="flex items-center space-x-2 shrink-0">
-                            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <MessageSquare className="w-5 h-5 text-white" />
-                            </div>
+                            <img src="/logo.png" alt="CollabSpace Logo" className="w-10 h-10" />
                             <span className="text-xl font-bold text-white hidden md:inline">CollabSpace</span>
                         </Link>
 
@@ -98,13 +96,13 @@ function Header() {
                             <>
                                 <div className="flex-1 max-w-2xl">
                                     <div className="relative">
-                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-5 h-5" />
                                         <input
                                             type="text"
                                             placeholder="Search users by username or email..."
                                             onClick={() => setShowSearchModal(true)}
                                             readOnly
-                                            className="w-full pl-10 pr-4 py-2 bg-gray-800 hover:bg-gray-750 text-white border border-gray-700 hover:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors cursor-pointer"
+                                            className="w-full pl-10 pr-4 py-2 bg-[#7f3a87] hover:bg-[#6e3378] text-white border border-[#7f3a87] hover:border-[#6e3378] rounded-lg focus:outline-none focus:border-blue-500 transition-colors cursor-pointer"
                                         />
                                     </div>
                                 </div>
@@ -112,7 +110,7 @@ function Header() {
                                 {/* User Menu */}
                                 <div className="flex items-center space-x-4 shrink-0">
                                     <Link href="/profile" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center overflow-hidden">
+                                        <div className="w-8 h-8 bg-[#7f3a87] rounded-full flex items-center justify-center overflow-hidden">
                                             {currentUser.avatarUrl ? (
                                                 <img
                                                     src={currentUser.avatarUrl}
@@ -123,12 +121,12 @@ function Header() {
                                                 <User className="w-4 h-4 text-white" />
                                             )}
                                         </div>
-                                        <span className="text-gray-300 hidden sm:inline">@{currentUser.username}</span>
+                                        <span className="text-white hidden sm:inline">@{currentUser.username}</span>
                                     </Link>
 
                                     <button
                                         onClick={handleLogout}
-                                        className="flex items-center space-x-2 text-gray-400 hover:text-red-400 transition-colors"
+                                        className="flex items-center space-x-2 text-white hover:text-red-400 transition-colors"
                                         title="Logout"
                                     >
                                         <LogOut className="w-5 h-5" />
@@ -143,12 +141,12 @@ function Header() {
             {/* Search Modal */}
             {showSearchModal && (
                 <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={closeModal}>
-                    <div className="bg-gray-900 rounded-xl shadow-2xl w-full max-w-2xl border border-gray-800" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+                    <div className="bg-[#1b1d21] rounded-xl shadow-2xl w-full max-w-2xl " onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center justify-between p-4 border-b border-gray-300">
                             <h2 className="text-lg font-semibold text-white">Search Users</h2>
                             <button
                                 onClick={closeModal}
-                                className="text-gray-400 hover:text-white transition-colors"
+                                className="text-gray-100 hover:text-white transition-colors"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -157,13 +155,13 @@ function Header() {
                         <div className="p-4">
                             <form onSubmit={handleSearch} className="space-y-4">
                                 <div className="relative">
-                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-100 w-5 h-5" />
                                     <input
                                         type="text"
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         placeholder="Enter username or email..."
-                                        className="w-full pl-10 pr-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full pl-10 pr-4 py-3  text-white border border-gray-100 rounded-lg focus:outline-none focus:border-[#7f3a87] transition-colors"
                                         autoFocus
                                     />
                                 </div>
@@ -171,7 +169,7 @@ function Header() {
                                 <button
                                     type="submit"
                                     disabled={loading || !searchTerm.trim()}
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded-lg font-medium transition-colors disabled:bg-black disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {loading ? (
                                         <>
@@ -196,11 +194,11 @@ function Header() {
 
                             {/* Search Result */}
                             {searchResult && (
-                                <div className="mt-4 bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                                <div className="mt-4 bg-[#222529] rounded-lg border border-gray-700 overflow-hidden">
                                     {/* Header with Avatar */}
-                                    <div className="bg-blue-600/20 p-6 border-b border-gray-700">
+                                    <div className="bg-[#30353f] p-6 border-b border-gray-700">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center overflow-hidden shrink-0 border-4 border-gray-900">
+                                            <div className="w-20 h-20 bg-[#30353f] rounded-full flex items-center justify-center overflow-hidden shrink-0 border-4 border-gray-900">
                                                 {searchResult.avatarUrl ? (
                                                     <img
                                                         src={searchResult.avatarUrl}
@@ -217,9 +215,9 @@ function Header() {
                                                 </h3>
                                                 <p className="text-lg text-gray-300">@{searchResult.username}</p>
                                                 {searchResult.role && (
-                                                    <span className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold ${searchResult.role === 'admin'
-                                                            ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                                                            : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                                                    <span className={`inline-block mt-2 px-3 py-1 rounded-lg text-xs font-semibold ${searchResult.role === 'admin'
+                                                        ? 'bg-red-500/20 text-red-300 border border-red-500/30'
+                                                        : 'bg-[#7f3a87] text-white border border-[#7f3a87]/30'
                                                         }`}>
                                                         {searchResult.role.toUpperCase()}
                                                     </span>
@@ -229,10 +227,10 @@ function Header() {
                                     </div>
 
                                     {/* User Details */}
-                                    <div className="p-6 space-y-4">
+                                    <div className="p-6 space-y-4 bg-[#222529]">
                                         <div className="grid gap-4">
                                             <div className="flex items-start gap-3">
-                                                <Mail className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                                                <Mail className="w-5 h-5 text-[#7f3a87] shrink-0 mt-0.5" />
                                                 <div className="flex-1 min-w-0">
                                                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Email Address</p>
                                                     <p className="text-white truncate">{searchResult.email}</p>
@@ -240,7 +238,7 @@ function Header() {
                                             </div>
 
                                             <div className="flex items-start gap-3">
-                                                <User className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                                                <User className="w-5 h-5 text-[#7f3a87] shrink-0 mt-0.5" />
                                                 <div className="flex-1 min-w-0">
                                                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Username</p>
                                                     <p className="text-white">@{searchResult.username}</p>
@@ -249,7 +247,7 @@ function Header() {
 
                                             {searchResult.bio && (
                                                 <div className="flex items-start gap-3">
-                                                    <MessageSquare className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                                                    <MessageSquare className="w-5 h-5 text-[#7f3a87] shrink-0 mt-0.5" />
                                                     <div className="flex-1 min-w-0">
                                                         <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Bio</p>
                                                         <p className="text-white">{searchResult.bio}</p>
@@ -273,7 +271,7 @@ function Header() {
                                         <div className="pt-4 border-t border-gray-700">
                                             <button
                                                 onClick={() => goToMessage(searchResult.username)}
-                                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                                                className="w-full bg-[#7f3a87] hover:bg-[#6e337a] text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
                                             >
                                                 <MessageSquare className="w-5 h-5" />
                                                 Send Message

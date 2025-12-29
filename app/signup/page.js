@@ -54,20 +54,32 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center p-4">
-      <div className="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-800">
+    <div className="relative min-h-screen bg-[#1b1d21] flex items-center justify-center p-4 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img
+          src="/bg-image.webp"
+          alt="Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
+
+      {/* Foreground */}
+      <div className="z-10 bg-[#401145] p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-800">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-          <p className="text-gray-400">Join CollabSpace today</p>
+          <h1 className="text-3xl font-bold text-white mb-2">
+            Create Account
+          </h1>
+          <p className="text-gray-200">Join CollabSpace today</p>
         </div>
 
         {message && (
           <div
-            className={`p-3 rounded-lg mb-4 text-sm ${
-              message.includes("successful")
-                ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                : "bg-red-500/10 text-red-400 border border-red-500/20"
-            }`}
+            className={`p-3 rounded-lg mb-4 text-sm ${message.includes("successful")
+              ? "bg-green-500/10 text-green-400 border border-green-500/20"
+              : "bg-red-500/10 text-red-400 border border-red-500/20"
+              }`}
           >
             {message}
           </div>
@@ -84,7 +96,7 @@ export default function SignUpPage() {
               value={form.username}
               onChange={handleChange}
               required
-              className="w-full text-white bg-gray-800 px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full text-white bg-[#2c2540] px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7e3986] focus:border-transparent"
             />
           </div>
 
@@ -99,7 +111,7 @@ export default function SignUpPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full text-white bg-gray-800 px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full text-white bg-[#2c2540] px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7e3986] focus:border-transparent"
             />
           </div>
 
@@ -112,7 +124,7 @@ export default function SignUpPage() {
               placeholder="Enter your full name"
               value={form.name}
               onChange={handleChange}
-              className="w-full text-white bg-gray-800 px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full text-white bg-[#2c2540] px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7e3986] focus:border-transparent"
             />
           </div>
 
@@ -127,14 +139,14 @@ export default function SignUpPage() {
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full text-white bg-gray-800 px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full text-white bg-[#2c2540] px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7e3986] focus:border-transparent"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed transition-colors font-medium"
+            className="w-full bg-[#7e3986] text-white py-3 px-4 rounded-lg hover:bg-[#6b3173] disabled:bg-[#5a2e5a] disabled:cursor-not-allowed transition-colors font-medium"
           >
             {loading ? "Creating Account..." : "Sign Up"}
           </button>

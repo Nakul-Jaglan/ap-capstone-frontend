@@ -51,8 +51,8 @@ export default function CallInterface() {
                 <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
                     <div className="mb-6">
                         {incomingCall.callerAvatar ? (
-                            <img 
-                                src={incomingCall.callerAvatar} 
+                            <img
+                                src={incomingCall.callerAvatar}
                                 alt={incomingCall.callerName}
                                 className="w-24 h-24 rounded-full mx-auto mb-4 animate-pulse object-cover"
                             />
@@ -130,8 +130,8 @@ export default function CallInterface() {
                             <div className="w-full h-full flex items-center justify-center">
                                 <div className="text-center">
                                     {(activeCall.targetUserAvatar || activeCall.callerAvatar) ? (
-                                        <img 
-                                            src={activeCall.targetUserAvatar || activeCall.callerAvatar} 
+                                        <img
+                                            src={activeCall.targetUserAvatar || activeCall.callerAvatar}
                                             alt={activeCall.targetUserName || activeCall.callerName}
                                             className="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white/20"
                                         />
@@ -192,8 +192,8 @@ export default function CallInterface() {
                         <button
                             onClick={toggleAudio}
                             className={`p-4 rounded-full transition-all shadow-lg ${isAudioEnabled
-                                    ? 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm'
-                                    : 'bg-red-500 hover:bg-red-600 text-white'
+                                ? 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm'
+                                : 'bg-red-500 hover:bg-red-600 text-white'
                                 }`}
                             title={isAudioEnabled ? 'Mute' : 'Unmute'}
                         >
@@ -205,8 +205,8 @@ export default function CallInterface() {
                             <button
                                 onClick={toggleVideo}
                                 className={`p-4 rounded-full transition-all shadow-lg ${isVideoEnabled
-                                        ? 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm'
-                                        : 'bg-red-500 hover:bg-red-600 text-white'
+                                    ? 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm'
+                                    : 'bg-red-500 hover:bg-red-600 text-white'
                                     }`}
                                 title={isVideoEnabled ? 'Turn off camera' : 'Turn on camera'}
                             >
